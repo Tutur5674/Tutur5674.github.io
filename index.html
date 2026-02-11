@@ -6,17 +6,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: #f4f4f4;
             line-height: 1.6;
+        }
+
+        /* Barre de progression */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: #ffdd57;
+            width: 0%;
+            z-index: 1000;
         }
 
         header {
@@ -31,12 +38,12 @@
             margin-bottom: 10px;
             color: #ffdd57;
             text-shadow: 2px 2px 4px #000;
+            transition: 0.3s;
         }
 
-        header p {
-            font-size: 1.2em;
-            color: #e0e0e0;
-        }
+        header h1:hover { color:#fff; }
+
+        header p { font-size:1.2em; color:#e0e0e0; }
 
         nav {
             display: flex;
@@ -45,7 +52,7 @@
             padding: 15px;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 999;
         }
 
         nav a {
@@ -69,12 +76,14 @@
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             backdrop-filter: blur(10px);
-            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
         }
 
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         h2 {
@@ -84,16 +93,20 @@
             border-bottom: 2px solid #ffdd57;
             display: inline-block;
             padding-bottom: 5px;
+            transition: color 0.3s;
         }
+
+        h2:hover { color:#fff; }
 
         p, li {
             font-size: 1.1em;
             margin-bottom: 15px;
+            transition: color 0.3s;
         }
 
-        ul {
-            margin-left: 20px;
-        }
+        li:hover { color:#ffdd57; }
+
+        ul { margin-left: 20px; }
 
         footer {
             text-align: center;
@@ -101,19 +114,11 @@
             background: rgba(0,0,0,0.6);
             color: #ffdd57;
         }
-
-        /* Animation texte */
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        section {
-            animation: fadeIn 1s ease forwards;
-        }
     </style>
 </head>
 <body>
+
+<div id="progress-bar"></div>
 
 <header>
     <h1>Production de Stage</h1>
@@ -206,6 +211,33 @@
 <footer>
     © 2026 - Arthur Gautier
 </footer>
+
+<script>
+    // Animation scroll pour sections
+    const sections = document.querySelectorAll('section');
+
+    function revealSection() {
+        const triggerBottom = window.innerHeight * 0.85;
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            if(sectionTop < triggerBottom) {
+                section.classList.add('visible');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', revealSection);
+    revealSection();
+
+    // Barre de progression
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+        const scroll = window.scrollY;
+        const height = document.body.scrollHeight - window.innerHeight;
+        const scrollPercent = (scroll / height) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    });
+</script>
 
 </body>
 </html>
