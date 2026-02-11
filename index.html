@@ -1,242 +1,230 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Production de Stage - Arthur Gautier</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+<meta charset="UTF-8">
+<title>Production de Stage - Arthur Gautier</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-        * { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: #f4f4f4;
-            line-height: 1.6;
-        }
+body {
+    font-family:'Roboto',sans-serif;
+    background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #2a5298);
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+    color:#f4f4f4;
+    line-height:1.6;
+}
 
-        /* Barre de progression */
-        #progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 5px;
-            background: #ffdd57;
-            width: 0%;
-            z-index: 1000;
-        }
+@keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-        header {
-            text-align: center;
-            padding: 50px 20px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-        }
+/* Barre de progression */
+#progress-bar {
+    position: fixed;
+    top: 0; left:0;
+    width:0%;
+    height:6px;
+    background:#ffdd57;
+    z-index:1000;
+}
 
-        header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            color: #ffdd57;
-            text-shadow: 2px 2px 4px #000;
-            transition: 0.3s;
-        }
+/* Header */
+header{
+    text-align:center;
+    padding:60px 20px;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(5px);
+}
 
-        header h1:hover { color:#fff; }
+header h1{
+    font-size:3em;
+    color:#ffdd57;
+    text-shadow:2px 2px 8px #000;
+    transition:0.3s;
+}
 
-        header p { font-size:1.2em; color:#e0e0e0; }
+header h1:hover{color:#fff; text-shadow:2px 2px 12px #ffdd57;}
 
-        nav {
-            display: flex;
-            justify-content: center;
-            background: rgba(0,0,0,0.7);
-            padding: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
+header p{font-size:1.2em; color:#e0e0e0; margin-top:5px;}
 
-        nav a {
-            color: #ffdd57;
-            margin: 0 20px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+/* Navigation */
+nav{
+    display:flex;
+    justify-content:center;
+    background:rgba(0,0,0,0.6);
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
 
-        nav a:hover {
-            color: #fff;
-            text-shadow: 1px 1px 4px #000;
-        }
+nav a{
+    color:#ffdd57;
+    margin:0 20px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
 
-        section {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
+nav a:hover{
+    color:#fff;
+    text-shadow:1px 1px 4px #000;
+}
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* Sections */
+section{
+    max-width:900px;
+    margin:50px auto;
+    padding:45px;
+    background: rgba(255,255,255,0.05);
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    backdrop-filter:blur(8px);
+    opacity:0;
+    transform:translateY(50px);
+    transition:all 0.8s ease-out;
+}
 
-        h2 {
-            font-size: 2em;
-            color: #ffdd57;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #ffdd57;
-            display: inline-block;
-            padding-bottom: 5px;
-            transition: color 0.3s;
-        }
+section.visible{
+    opacity:1;
+    transform:translateY(0);
+}
 
-        h2:hover { color:#fff; }
+h2{
+    font-size:2em;
+    color:#ffdd57;
+    margin-bottom:20px;
+    border-bottom:2px solid #ffdd57;
+    display:inline-block;
+    padding-bottom:5px;
+    text-shadow:1px 1px 4px #000;
+    transition:0.3s;
+}
 
-        p, li {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            transition: color 0.3s;
-        }
+h2:hover{
+    color:#fff;
+    text-shadow:2px 2px 12px #ffdd57;
+}
 
-        li:hover { color:#ffdd57; }
+p, li{
+    font-size:1.15em;
+    margin-bottom:15px;
+    transition:0.3s;
+}
 
-        ul { margin-left: 20px; }
+li::before{
+    content:"✓ ";
+    color:#ffdd57;
+    font-weight:bold;
+}
 
-        footer {
-            text-align: center;
-            padding: 25px;
-            background: rgba(0,0,0,0.6);
-            color: #ffdd57;
-        }
-    </style>
+li:hover{
+    color:#ffdd57;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:25px;
+    background:rgba(0,0,0,0.5);
+    color:#ffdd57;
+}
+
+/* Animation texte */
+@keyframes fadeInUp{
+    0%{opacity:0; transform:translateY(50px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+</style>
 </head>
 <body>
 
 <div id="progress-bar"></div>
 
 <header>
-    <h1>Production de Stage</h1>
-    <p>Arthur Gautier – Stage en Informatique</p>
-    <p>Centre Médical Gallouédec – Le Mans</p>
+<h1>Production de Stage</h1>
+<p>Arthur Gautier – Stage en Informatique</p>
+<p>Centre Médical Gallouédec – Le Mans</p>
 </header>
 
 <nav>
-    <a href="#entreprise">Entreprise</a>
-    <a href="#missions">Missions</a>
-    <a href="#journee">Journée type</a>
-    <a href="#apprentissage">Compétences</a>
-    <a href="#conclusion">Conclusion</a>
+<a href="#entreprise">Entreprise</a>
+<a href="#missions">Missions</a>
+<a href="#journee">Journée type</a>
+<a href="#apprentissage">Compétences</a>
+<a href="#conclusion">Conclusion</a>
 </nav>
 
 <section id="entreprise">
-    <h2>Présentation de l'entreprise</h2>
-    <p>
-        J’ai effectué mon stage au Centre Médical Gallouédec au Mans, un établissement
-        qui accueille différents services médicaux. Le service informatique est vital
-        pour la gestion des dossiers patients, la communication interne et le bon fonctionnement
-        du matériel.
-    </p>
-    <p>
-        Ce service assure la maintenance des ordinateurs, la configuration des nouveaux postes,
-        la gestion des réseaux et l’assistance technique aux utilisateurs.
-    </p>
+<h2>Présentation de l'entreprise</h2>
+<p>J’ai effectué mon stage au Centre Médical Gallouédec au Mans, un établissement médical accueillant divers services. Le service informatique est crucial pour la gestion des dossiers patients, la communication interne et la maintenance du matériel.</p>
+<p>Ce service assure la maintenance des ordinateurs, la configuration des nouveaux postes, la gestion des réseaux et l’assistance technique aux utilisateurs.</p>
 </section>
 
 <section id="missions">
-    <h2>Mes missions</h2>
-    <p>
-        Pendant mon stage, j’ai travaillé aux côtés du chef informaticien et participé à diverses missions :
-    </p>
-    <ul>
-        <li>Maintenance et vérification du parc informatique</li>
-        <li>Installation et configuration des nouveaux ordinateurs</li>
-        <li>Assistance technique aux utilisateurs</li>
-        <li>Organisation du bureau et préparation du matériel</li>
-        <li>Diagnostic des pannes matérielles et logicielles</li>
-    </ul>
-    <p>
-        Ces tâches m’ont permis de découvrir le fonctionnement complet d’un service informatique.
-    </p>
+<h2>Mes missions</h2>
+<p>Pendant mon stage, j’ai travaillé aux côtés du chef informaticien et participé à plusieurs missions :</p>
+<ul>
+<li>Maintenance et vérification du parc informatique</li>
+<li>Installation et configuration des nouveaux ordinateurs</li>
+<li>Assistance technique aux utilisateurs</li>
+<li>Organisation du bureau et préparation du matériel</li>
+<li>Diagnostic des pannes matérielles et logicielles</li>
+</ul>
+<p>Ces missions m’ont permis de découvrir le fonctionnement complet d’un service informatique et d’appliquer mes connaissances théoriques en situation réelle.</p>
 </section>
 
 <section id="journee">
-    <h2>Une journée type</h2>
-    <p>
-        Une journée commençait vers 7h30 et se terminait vers 16h. Le matin, nous vérifions
-        les demandes d’intervention. Ensuite, nous intervenions sur les problèmes signalés.
-    </p>
-    <p>
-        L’après-midi était consacré à la mise à jour des systèmes, à la configuration du matériel
-        et à l’organisation du bureau.
-    </p>
+<h2>Une journée type</h2>
+<p>La journée commençait vers 7h30 et se terminait vers 16h. Le matin, nous faisions le point sur les demandes d’intervention. Ensuite, nous intervenions sur les problèmes signalés dans les différents services.</p>
+<p>L’après-midi était consacré à la mise à jour des systèmes, à la configuration du matériel et à l’organisation du bureau informatique.</p>
 </section>
 
 <section id="apprentissage">
-    <h2>Compétences et apprentissages</h2>
-    <p>
-        Ce stage m’a permis de développer des compétences techniques solides et de mieux comprendre
-        le fonctionnement d’un service informatique en milieu professionnel.
-    </p>
-    <ul>
-        <li>Organisation et rigueur</li>
-        <li>Travail en équipe et communication</li>
-        <li>Résolution de problèmes techniques</li>
-        <li>Gestion efficace du matériel informatique</li>
-    </ul>
-    <p>
-        J’ai également acquis une meilleure compréhension des responsabilités dans un environnement
-        médical et de l’importance d’un service informatique fiable.
-    </p>
+<h2>Compétences et apprentissages</h2>
+<p>Ce stage m’a permis de développer des compétences techniques solides et de mieux comprendre le fonctionnement d’un service informatique en milieu professionnel.</p>
+<ul>
+<li>Organisation et rigueur</li>
+<li>Travail en équipe et communication</li>
+<li>Résolution de problèmes techniques</li>
+<li>Gestion efficace du matériel informatique</li>
+</ul>
+<p>J’ai également acquis une meilleure compréhension des responsabilités dans un environnement médical et de l’importance d’un service informatique fiable.</p>
 </section>
 
 <section id="conclusion">
-    <h2>Conclusion</h2>
-    <p>
-        Ce stage au Centre Médical Gallouédec a été une expérience extrêmement enrichissante.
-        Il a confirmé mon intérêt pour l’informatique et m’a permis d’acquérir des compétences
-        pratiques et humaines.
-    </p>
-    <p>
-        Cette immersion professionnelle m’a donné confiance et motivation pour continuer
-        à progresser dans le domaine informatique.
-    </p>
+<h2>Conclusion</h2>
+<p>Ce stage au Centre Médical Gallouédec a été une expérience extrêmement enrichissante. Il a confirmé mon intérêt pour l’informatique et m’a permis d’acquérir des compétences pratiques et humaines.</p>
+<p>Cette immersion professionnelle m’a donné confiance et motivation pour continuer à progresser dans le domaine informatique.</p>
 </section>
 
-<footer>
-    © 2026 - Arthur Gautier
-</footer>
+<footer>© 2026 - Arthur Gautier</footer>
 
 <script>
-    // Animation scroll pour sections
-    const sections = document.querySelectorAll('section');
-
-    function revealSection() {
-        const triggerBottom = window.innerHeight * 0.85;
-        sections.forEach(section => {
-            const sectionTop = section.getBoundingClientRect().top;
-            if(sectionTop < triggerBottom) {
-                section.classList.add('visible');
-            }
-        });
-    }
-
-    window.addEventListener('scroll', revealSection);
-    revealSection();
-
-    // Barre de progression
-    const progressBar = document.getElementById('progress-bar');
-    window.addEventListener('scroll', () => {
-        const scroll = window.scrollY;
-        const height = document.body.scrollHeight - window.innerHeight;
-        const scrollPercent = (scroll / height) * 100;
-        progressBar.style.width = scrollPercent + '%';
+// Animation scroll sections
+const sections = document.querySelectorAll('section');
+function revealSection(){
+    const triggerBottom = window.innerHeight * 0.85;
+    sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if(top < triggerBottom){ section.classList.add('visible'); }
     });
+}
+window.addEventListener('scroll', revealSection);
+revealSection();
+
+// Barre de progression
+const progress = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+    const scroll = window.scrollY;
+    const height = document.body.scrollHeight - window.innerHeight;
+    progress.style.width = (scroll/height)*100 + '%';
+});
 </script>
 
 </body>
